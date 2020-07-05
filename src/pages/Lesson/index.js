@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FiChevronLeft } from 'react-icons/fi';
 import api from '../../services/api';
+import User from '../../assets/user.png';
+import { FiAward } from 'react-icons/fi';
 
 import './style.css';
 import { Link, useHistory } from 'react-router-dom';
@@ -62,6 +64,16 @@ const Boats = () => {
         }else {
             setSelectedBoat([...selectedBoats, id]);
         }
+    }
+
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+       getUsers();
+    }, []);
+
+    async function getUsers() {
+        const userList = await api.get('lessons');
+        setUsers(userList.data);
     }
 
     async function sendData(event) {
@@ -146,6 +158,43 @@ const Boats = () => {
                 </form>
             </div>
         </div>
+	<div id="mainLesson">
+              <h2>Lista de conteúdos de treinamentos</h2>
+	</div>    
+	<div id="mainRank">
+            <ul>
+            {users.map(user => (
+                <li
+                    key={user._id}
+                >
+		    <div className="video">
+                    <video width="320" height="240" controls>
+ 			<source src={user.url} type="video/mp4"/> 
+			Your browser does not support the video tag.
+		    </video>
+		    </div>
+
+		    <br />
+                    <img src="https://raw.githubusercontent.com/leoym/leoym.github.io/master/img/rebocador.png"  alt="Barco" width="30" />
+                    <div className="title">
+                        <span className="level">Nível: {user.level}</span> 
+		        <br />
+                        <span>Profissional: {user.role}</span>
+		        <br />
+                        <span className="user-points">Curso: {user.title}</span>
+		        <br />
+		        <span className="user-points">Vídeo: <a href={user.url} target="_blank" rel="noopener noreferrer" > Link </a></span>
+                    </div>
+                    <div className="certify">
+                        <FiAward />
+                    </div>
+		    <img src={User} alt={user.name} width="50" />
+
+                </li>
+            ))}
+            </ul>
+        </div>
+
     </div>
     );
 }

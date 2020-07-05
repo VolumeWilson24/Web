@@ -24,7 +24,10 @@ const Rank = () => {
             <Link to="/"><FiChevronLeft /> Voltar</Link>
             <h1>TreinaMar</h1>
         </header>
+
         <div id="mainRank">
+	    <h2>Ranking dos profissionais</h2>
+
             <ul>
             {users.map(user => (
                 <li 

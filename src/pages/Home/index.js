@@ -14,8 +14,8 @@ export default Home => (
         <div id="menu">
             <main id="content">
                 <Link to="/boats"><img src={Boat} alt="Boat"/> Embarcações</Link>
-                <Link to="/lessons"><img src={Content} alt="Content"/> Trerinamentos</Link>
-                <Link to="/rank"><img src={Employee} alt="Employee"/> Rank</Link>
+                <Link to="/lessons"><img src={Content} alt="Content"/> Treinamentos</Link>
+                <Link to="/rank"><img src={Employee} alt="Employee"/> Ranking</Link>
             </main>
         </div>
     </div>
