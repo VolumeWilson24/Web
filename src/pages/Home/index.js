@@ -12,6 +12,11 @@ export default Home => (
             <h1>TreinaMar</h1>
         </header>
         <div id="menu">
+	    <center>
+	    <img src="https://raw.githubusercontent.com/VolumeWilson24/plataforma/master/TreinaMar.png" alt="Logo" width="420"/>
+	    <br/>
+	    </center>
+	    
             <main id="content">
                 <Link to="/boats"><img src={Boat} alt="Boat"/> Embarcações</Link>
                 <Link to="/lessons"><img src={Content} alt="Content"/> Treinamentos</Link>
