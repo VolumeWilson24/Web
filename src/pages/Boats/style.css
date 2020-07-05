@@ -1,0 +1,143 @@
+header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #020F59;
+    color: white;
+}
+
+header h1{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+header a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    position: absolute;
+    left: 50px;
+    top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#mainBoats {
+    width: 100%;
+    max-width: 800px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#mainBoats ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+#mainBoats ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+#mainBoats img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+#boats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#boats h2 {
+    margin-bottom: 50px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #020F59;
+}
+
+#store-boat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#store-boat h2 {
+    font-family: 'Ubuntu', sans-serif;
+    margin-bottom: 100px;
+    color: #020F59
+}
+
+#store-boat form{
+    display: flex;
+    flex-direction: column;
+}
+
+#store-boat input[type="text"] {
+    border: 0;
+    outline: 0;
+    height: 52px;
+    border-radius: 8px;
+    padding: 5px 16px;
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+#store-boat input[type="file"] {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+   
+  #store-boat input[type="file"] + label {
+    background-color: #63698D;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 2rem 4rem;
+    height: 52px;
+    margin-bottom: 16px;
+  }
+    
+  #store-boat input[type="file"]:focus + label,
+  #store-boat input[type="file"] + label:hover {
+      background-color: #234459;
+  }
+    
+#store-boat button {
+    border: 0;
+    outline: 0;
+    height: 52px;
+    color: #fff;
+    background-color: #020F59;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+#store-boat button:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+}
+
+
+

@@ -1,0 +1,152 @@
+import React, { useEffect, useState } from 'react';
+import { FiChevronLeft } from 'react-icons/fi';
+import api from '../../services/api';
+
+import './style.css';
+import { Link, useHistory } from 'react-router-dom';
+
+const Boats = () => {
+
+    const history = useHistory();
+    const [title, setTitle] = useState('');
+    const [video, selectVideo] = useState();
+    const [selectedRole, setSelectedRole] = useState('0');
+    const [selectedLevel, setSelectedLevel] = useState('0');
+    const [selectedBoats, setSelectedBoat] = useState([]);
+    const [boats, setBoats] = useState([]);
+
+    useEffect(() => {
+       getBoats();
+    }, []);
+
+    async function getBoats() {
+        const boatList = await api.get('boats');
+        setBoats(boatList.data);
+    }
+
+    const roles = [
+        'Chefe de máquina',
+        'Marinheiro de convés',
+        'Comandante',
+        'Todos'
+    ];
+
+    const levels = [
+        'Iniciante',
+        'Intermediário',
+        'Pro',
+        'Todos'
+    ];
+
+    function getFile(event) {
+        selectVideo(event.target.files[0]);
+    }
+
+    function getTitle(event) {
+        setTitle(event.target.value);
+    }
+
+    function selectRole(event) {
+        setSelectedRole(event.target.value);
+    }
+
+    function selectLevel(event) {
+        setSelectedLevel(event.target.value);
+    }
+
+    function selectBoat(id) {
+        const alreadySelected = selectedBoats.findIndex(item => item === id);
+        if(alreadySelected > -1) {
+            const filteredBoat = selectedBoats.filter(item => item !== id);
+            setSelectedBoat(filteredBoat);
+        }else {
+            setSelectedBoat([...selectedBoats, id]);
+        }
+    }
+
+    async function sendData(event) {
+        event.preventDefault();
+        
+        if(title !== '' && video) {
+            const data = new FormData();
+
+            data.append('title', title);
+            data.append('level', selectedLevel);
+            data.append('role', selectedRole);
+            data.append('boat', selectedBoats);
+            data.append('video', video);
+            
+        
+            await api.post('lessons', data);
+            history.push('/');
+        }
+    }
+
+    return(
+    <div className="container">
+        <header>
+            <Link to="/"><FiChevronLeft /> Voltar</Link>
+            <h1>TreinaMar</h1>
+        </header>
+        <div id="mainLesson">
+            <div id="store-lesson">
+                <h2>Adicione aqui novos conteúdos de treinamento</h2>
+                <form>
+                    <input 
+                        type="text" 
+                        name="title" 
+                        d="title" 
+                        placeholder="Título do conteúdo"
+                        onChange={getTitle}
+                    />
+                    <select 
+                        name="levels" 
+                        id="levels"
+                        value={selectedLevel} 
+                        onChange={selectLevel}
+                    >
+                    <option value="0">Selecione o nível do conteúdo</option>
+                        {levels.map(level => (
+                            <option key={level} value={level}>{level}</option>
+                        ))}
+                    </select>
+                    <select 
+                        name="roles" 
+                        id="roles"
+                        value={selectedRole} 
+                        onChange={selectRole}
+                    >
+                    <option value="0">Selecione uma função</option>
+                        {roles.map(role => (
+                            <option key={role} value={role}>{role}</option>
+                        ))}
+                    </select>
+                    <label htmlFor="listBoat">Selcione as embarcações que o conteúdo corresponde</label>
+                    <ul id="listBoat" name="listBoat">
+                    {boats.map(boat => (
+                            <li 
+                                key={boat._id} 
+                                value={boat.name}
+                                onClick={() => selectBoat(boat._id)}
+                                className={selectedBoats.includes(boat._id)? 'selected' : ''}
+                            >
+                                {boat.name}
+                            </li>
+                        ))}
+                    </ul>
+                    <input 
+                        type="file" 
+                        name="aula" 
+                        id="aula" 
+                        accept="video/mp4" 
+                        onChange={getFile}
+                    />
+                    <label htmlFor="aula">{video? video.name: 'Escolha um video'}</label>
+                    <button type="submit" onClick={sendData}>Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    );
+}
+export default Boats;
